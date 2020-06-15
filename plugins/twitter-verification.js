@@ -8,7 +8,7 @@ const stringify = require('json-stringify-safe')
 const { map } = require('ramda')
 
 const BEEFY_GUILD_ID = '106690445328855040'
-const TEST_GUILD_ID = '283748334311571457'
+const TEST_GUILD_ID = '721909386083041280'
 const WTT_GUILD_ID = '156528442446184448'
 const allowedGuilds = [BEEFY_GUILD_ID, TEST_GUILD_ID, WTT_GUILD_ID]
 
@@ -20,10 +20,10 @@ const { debug, error, info } = map(fn => fn.bind(console), console)
 class TwitterVerification extends AbstractPlugin {
   constructor(client) {
     super()
-    // reporter.register({
-    //   userId: '268183210297393152',
-    //   client
-    // });
+    reporter.register({
+      client,
+      userId: '721436386946711592',
+    });
 
     client.on('message', async message => {
       if (!(message.channel instanceof Discord.TextChannel)) return
@@ -38,10 +38,14 @@ class TwitterVerification extends AbstractPlugin {
 
         const $ = await request({
           uri: tweetUri,
-          transform: body => cheerio.load(body)
+           transform: body => cheerio.load(body)
         })
 
-        if ($('.permalink-header .Icon--verified')[0]) {
+        const isVerified = $('.main-tweet .fullname')
+          .html()
+          .includes("Verified Account")
+
+        if (isVerified) {
           const bluecheck = await message.guild.emojis.find(
             emoji => emoji.name === EMOJI_NAME
           )
@@ -53,6 +57,7 @@ class TwitterVerification extends AbstractPlugin {
 
       } catch (e) {
         e.data = { messageContent: message.content }
+        console.error(e)
         reporter.error(e)
       }
     })
@@ -68,7 +73,7 @@ class TwitterVerification extends AbstractPlugin {
   }
 
   getUri(message) {
-    const host = 'http://www.twitter.com'
+    const host = 'https://mobile.twitter.com'
     const path = message.content.split('twitter.com')[1].split(' ')[0]
     return host + path
   }
