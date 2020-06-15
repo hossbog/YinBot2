@@ -12,14 +12,15 @@ class PinMessage extends AbstractPlugin {
       client
     });
 
-    client.on("messageReactionAdd", (reaction) => {
+    client.on('messageReactionAdd', reaction => {
       try {
         // you'll never fucking guess what this does
-        if(reaction.emoji.name == "📌")
-            reaction.message.pin()
-          
-      } catch (e) { e.data = { messageContent: reaction }; reporter.error(e) }
-    })
+        if (reaction.emoji.name == '📌') reaction.message.pin();
+      } catch (e) {
+        e.data = { messageContent: reaction };
+        reporter.error(e);
+      }
+    });
   }
 }
 

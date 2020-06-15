@@ -9,6 +9,7 @@ const reporter = new Reporter();
 class RacismDog extends AbstractPlugin {
   constructor(client) {
     super();
+    return;
     reporter.register({
       userId: '358407021344587777',
       client

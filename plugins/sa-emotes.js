@@ -19,7 +19,7 @@ class SaEmotes extends AbstractPlugin {
     client.on('message', async message => {
       try {
         if (emoteRegEx.test(message.content)) {
-          const fileExtensions = ['.png', '.gif'];
+          const fileExtensions = ['.png', '.gif', '.mp4'];
           const emoteFolders = [
             path.join(__rootdir, 'saemotes'),
             path.join(__rootdir, 'cemotes')
