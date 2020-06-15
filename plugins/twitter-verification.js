@@ -7,7 +7,7 @@ const request = require('request-promise-native')
 const stringify = require('json-stringify-safe')
 const { map } = require('ramda')
 
-const BEEFY_GUILD_ID = '106690445328855040'
+const BEEFY_GUILD_ID = '721744376283398214'
 const TEST_GUILD_ID = '721909386083041280'
 const WTT_GUILD_ID = '156528442446184448'
 const allowedGuilds = [BEEFY_GUILD_ID, TEST_GUILD_ID, WTT_GUILD_ID]
